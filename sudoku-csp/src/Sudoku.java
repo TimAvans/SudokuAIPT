@@ -1,6 +1,9 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Sudoku {
   private Field[][] board;
@@ -55,8 +58,8 @@ public class Sudoku {
         		}
         	}
         }
-        scanner.close();
-		}
+        scanner.close();      
+    }
 		catch (FileNotFoundException e) {
 			System.out.println("error opening file: "+filename);
 		}
@@ -68,8 +71,26 @@ public class Sudoku {
    * Adds a list of neighbours to each field, i.e., arcs to be satisfied
    * @param grid
    */
-  private static void addNeighbours(Field[][] grid) {
-    // TODO: for each field, add its neighbours
+  private static void addNeighbours(Field[][] grid) 
+  {
+    for(int y = 0; y < grid.length; y++)
+    {
+      for(int x = 0; x < grid[y].length; x++)
+      {
+        List<Field> tempList = new LinkedList<Field>(Arrays.asList(grid[y]));
+        tempList.remove(x);
+        grid[y][x].setNeighbours(tempList, false);
+        List<Field> tempList2 = new LinkedList<Field>();
+        for(int i = 0; i < grid[y].length; i++ )
+        {
+          if (y != i) {
+            tempList2.add(grid[i][x]);
+          }
+        }
+        tempList.addAll(tempList2);
+        grid[y][x].setNeighbours(tempList, false);
+      }
+    } 
   }
 
   /**

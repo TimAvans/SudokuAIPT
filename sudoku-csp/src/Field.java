@@ -5,7 +5,6 @@ public class Field {
   private int value = 0;
   private List<Integer> domain;
   private List<Field> neighbours; //A list of all fields that this field is constrained by
-
   /*
    * ==============
    *  CONSTRUCTORS
@@ -14,6 +13,7 @@ public class Field {
 
   // Constructor in case the field is unknown
   Field() {
+    this.neighbours = new ArrayList<>();
     this.domain = new ArrayList<>(9);
     for (int i = 1; i < 10; i++)
       this.domain.add(i);
@@ -23,6 +23,7 @@ public class Field {
   Field(int initValue) {
     this.value = initValue;
     this.domain = new ArrayList<>();
+    this.neighbours = new ArrayList<>();
   }
 
   /*
@@ -43,9 +44,17 @@ public class Field {
    *  NEIGHBOUR FUNCTIONS
    * =====================
    */
-  public void setNeighbours(List<Field> neighbours) {
+  public void setNeighbours(List<Field> neighbours, boolean horizontal) {
     this.neighbours = neighbours;
   }
+
+
+  public void addNeighbour(Field neighbour, boolean horizontal)
+  {
+    this.neighbours.add(neighbour);
+
+  }
+
 
   public List<Field> getNeighbours() {
     return neighbours;
