@@ -1,4 +1,4 @@
-import java.util.PriorityQueue;
+import java.util.LinkedList;
 
 public class Game {
   private Sudoku sudoku;
@@ -22,7 +22,6 @@ public class Game {
 
     return true;
   }
-  //TODO: Constraint voor verticaal, horizontaal en de 3x3 grid.
 
   /**
    * 
@@ -30,25 +29,42 @@ public class Game {
    */
   public boolean ac3(Field[][] grid)
   {
-    PriorityQueue<Constraint> queue = createConstraints();
-
-
-    return false;
+    LinkedList<Constraint> queue = createConstraints();
+    while (!queue.isEmpty()) {
+      Constraint constraint = queue.poll();
+      
+      if (constraint.checkConstraint()) {
+        if (constraint.field1.getDomainSize() == 0) {
+          return false;
+        }
+        for (Field neighbour : constraint.field1.getOtherNeighbours(constraint.field2)) {
+          if (neighbour.getValue() == 0) {
+            Constraint cstr = new Constraint(neighbour, constraint.field1);
+            if (!queue.contains(cstr)) {
+              queue.add(cstr);
+            }
+          }
+        }
+        queue.add(constraint);
+      }
+    }
+    return true;
   } 
+
 
   /**
    * 
    */
-  public PriorityQueue<Constraint> createConstraints()
+  public LinkedList<Constraint> createConstraints()
   {
-    PriorityQueue<Constraint> queue = new PriorityQueue<>();
+    LinkedList<Constraint> queue = new LinkedList<Constraint>();
     Field[][] grid = sudoku.getBoard();
     for(int i = 0; i < grid.length; i++)
     {
       for(int j = 0; j < grid[i].length; j++)
       {
         for (Field field : grid[i][j].getNeighbours()) {
-          queue.add(new Constraint(grid[i][j], field));
+          queue.add(new Constraint(field, grid[i][j]));
         }
       }
     }

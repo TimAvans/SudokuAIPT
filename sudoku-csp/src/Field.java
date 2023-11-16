@@ -55,7 +55,6 @@ public class Field {
 
   }
 
-
   public List<Field> getNeighbours() {
     return neighbours;
   }
