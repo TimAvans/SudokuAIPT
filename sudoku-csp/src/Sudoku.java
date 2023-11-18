@@ -77,17 +77,36 @@ public class Sudoku {
     {
       for(int x = 0; x < grid[y].length; x++)
       {
+        //Make a temporary list of horizontal neighbours
         List<Field> tempList = new LinkedList<Field>(Arrays.asList(grid[y]));
+        
+        //Remove the current field
         tempList.remove(x);
-        grid[y][x].setNeighbours(tempList, false);
-        List<Field> tempList2 = new LinkedList<Field>();
-        for(int i = 0; i < grid[y].length; i++ )
+        
+        //Add the vertical neighbours
+        for(int i = 0; i < grid.length; i++ )
         {
           if (y != i) {
-            tempList2.add(grid[i][x]);
+            tempList.add(grid[i][x]);
           }
         }
-        tempList.addAll(tempList2);
+
+        // Add cells from the same 3x3 subgrid
+        int subgridStartX = (x / 3) * 3;
+        int subgridStartY = (y / 3) * 3; 
+        // System.out.println("Starting x-coordinate of the subgrid: " + subgridStartX);
+        // System.out.println("Starting y-coordinate of the subgrid: " + subgridStartY);
+        for (int i = subgridStartY; i < subgridStartY + 3; i++) {
+            for (int j = subgridStartX; j < subgridStartX + 3; j++) {
+                if (i != y || j != x) {
+                  if (!tempList.contains(grid[i][j])) {
+                    tempList.add(grid[i][j]);
+                  }            
+                }
+            }
+        }
+
+        //Set the temporary list as the neighbours
         grid[y][x].setNeighbours(tempList, false);
       }
     } 

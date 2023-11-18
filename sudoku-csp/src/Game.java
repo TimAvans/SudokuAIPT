@@ -37,6 +37,7 @@ public class Game {
         if (constraint.field1.getDomainSize() == 0) {
           return false;
         }
+
         for (Field neighbour : constraint.field1.getOtherNeighbours(constraint.field2)) {
           if (neighbour.getValue() == 0) {
             Constraint cstr = new Constraint(neighbour, constraint.field1);
@@ -51,7 +52,6 @@ public class Game {
     return true;
   } 
 
-
   /**
    * 
    */
@@ -65,7 +65,7 @@ public class Game {
       {
         for (Field field : grid[i][j].getNeighbours()) {
           queue.add(new Constraint(field, grid[i][j]));
-        }
+        }      
       }
     }
     return queue;

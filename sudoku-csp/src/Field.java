@@ -106,4 +106,17 @@ public class Field {
   public String toString() {
     return (value==0)? "." : String.valueOf(value);
   }
+
+  @Override
+  public boolean equals(Object other)
+  {
+    if (other instanceof Field) {
+      if (((Field)other).domain == this.domain 
+      && ((Field)other).neighbours == this.neighbours 
+      && ((Field)other).value == this.value) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
