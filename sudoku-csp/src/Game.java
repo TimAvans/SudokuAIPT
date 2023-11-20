@@ -29,15 +29,13 @@ public class Game {
    */
   public boolean ac3(Field[][] grid)
   {
+    int complexity = 0;
     LinkedList<Constraint> queue = createConstraints();
     while (!queue.isEmpty()) {
+      complexity++;;
       Constraint constraint = queue.poll();
       
       if (constraint.checkConstraint()) {
-        if (constraint.field1.getDomainSize() == 0) {
-          return false;
-        }
-
         for (Field neighbour : constraint.field1.getOtherNeighbours(constraint.field2)) {
           if (neighbour.getValue() == 0) {
             Constraint cstr = new Constraint(neighbour, constraint.field1);
@@ -46,9 +44,9 @@ public class Game {
             }
           }
         }
-        queue.add(constraint);
       }
     }
+    System.out.println("Complexity of AC3: " + complexity);
     return true;
   } 
 
@@ -64,7 +62,7 @@ public class Game {
       for(int j = 0; j < grid[i].length; j++)
       {
         for (Field field : grid[i][j].getNeighbours()) {
-          queue.add(new Constraint(field, grid[i][j]));
+          queue.add(new Constraint(grid[i][j], field));
         }      
       }
     }
@@ -78,7 +76,21 @@ public class Game {
    * @return true if the sudoku solution is correct
    */
   public boolean validSolution() {
-    // TODO: implement validSolution function
+    Field[][] grid = sudoku.getBoard();
+    for(int i = 0; i < grid.length; i++)
+    {
+      for (Field field : grid[i]) {
+        if (field.getValue() == 0) {
+          return false;
+        }
+        for (Field neighbour : field.getNeighbours()) {
+          if (neighbour.getValue() == field.getValue()) {
+            return false;
+          } 
+        }
+
+      }
+    }
     return true;
   }
 }

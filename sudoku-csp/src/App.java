@@ -1,7 +1,7 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        String workingDir = System.getProperty("user.dir");
-        start( workingDir + "\\sudoku-csp\\Sudoku3.txt");
+        // String workingDir = System.getProperty("user.dir");
+        start( "..\\Sudoku3.txt");
     }
 
     /**
