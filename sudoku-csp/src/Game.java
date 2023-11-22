@@ -7,15 +7,14 @@ public class Game {
   private Sudoku sudoku;
   private PriorityQueue<Constraint> queue;
 
-  //TODO: Make it autocomplete all sudokus with different settings for heuristics
   Game(Sudoku sudoku) {
     this.sudoku = sudoku;
-    queue = createConstraints(Arrays.asList("mrvc", "dgc"));
+    createConstraints(Arrays.asList("mrvc", "dgc"));
   }
 
   Game(Sudoku sudoku, List<String> comparators) {
     this.sudoku = sudoku;
-    queue = createConstraints(comparators);
+    createConstraints(comparators);
   }
 
   public void showSudoku() {
@@ -24,7 +23,6 @@ public class Game {
 
   /**
    * Implementation of the AC-3 algorithm
-   * 
    * @return true if the constraints can be satisfied, else false
    */
   public boolean solve() {
@@ -33,6 +31,7 @@ public class Game {
     return true;
   }
 
+  //#region AC3
   /**
    * 
    * @param grid
@@ -65,26 +64,36 @@ public class Game {
       }
     }
   }
-
+//#endregion
+  
+  //#region Constraint creation
   /**
-   *  TODO: CleanUp
+   * 
    */
   public PriorityQueue<Constraint> createConstraints(List<String> comparators) {
-    PriorityQueue<Constraint> queue = new PriorityQueue<>(Comparator.comparingInt(cstr -> ComparatorController.Instance().getHeuristicValue(comparators, cstr)));
+    queue = new PriorityQueue<>(Comparator.comparingInt(cstr -> ComparatorController.Instance().getHeuristicValue(comparators, cstr)));
     Field[][] grid = sudoku.getBoard();
     for (int i = 0; i < grid.length; i++) {
       for (int j = 0; j < grid[i].length; j++) {
         Field field = grid[i][j];
-        if (field.getValue() == 0) {
-          for (Field neighbour : grid[i][j].getNeighbours()) {
-            queue.add(new Constraint(field, neighbour));
-          }
-        }
+        addConstraintsToQueue(field);
       }
     }
     return queue;
   }
 
+  private void addConstraintsToQueue(Field field)
+  {
+    if (field.getValue() == 0) {
+      for (Field neighbour : field.getNeighbours()) {
+        queue.add(new Constraint(field, neighbour));
+      }
+    }
+  }
+
+  //#endregion
+  
+  //#region Solution check
   /**
    * Checks the validity of a sudoku solution
    * Checks for each field if its current value exists
@@ -97,14 +106,23 @@ public class Game {
         if (field.getValue() == 0) {
           return false;
         }
-        for (Field neighbour : field.getNeighbours()) {
-          if (neighbour.getValue() == field.getValue()) {
-            return false;
-          }
+        if (!checkNeighbours(field)) {
+          return false;
         }
-
       }
     }
     return true;
   }
+
+  private boolean checkNeighbours(Field field)
+  {
+    for (Field neighbour : field.getNeighbours()) {
+      if (neighbour.getValue() == field.getValue()) {
+        return false;
+      }
+    }
+    return true;
+  }
+  //#endregion
+
 }

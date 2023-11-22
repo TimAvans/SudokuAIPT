@@ -1,11 +1,9 @@
 public class App {
     public static void main(String[] args) throws Exception {
         String workingDir = System.getProperty("user.dir");
+        
         start(workingDir +  "\\sudoku-csp\\Sudoku1.txt");
-    }
-
-    public static void startAllSudokuFiles()
-    {
+        //AutomateResults.Instance().runGames(workingDir + "\\sudoku-csp\\");
     }
 
     /**
