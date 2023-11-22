@@ -1,13 +1,17 @@
 import java.io.File;
-import java.io.FilenameFilter;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class AutomateResults {
+    
     private static AutomateResults instance;
     
     private AutomateResults() {
     }
+
     public static AutomateResults Instance()
     {
         if (instance == null) {
@@ -19,14 +23,59 @@ public class AutomateResults {
     public void runGames(String directory)
     {
         List<String> files = getFiles(directory);
+        for (String file : files) {
+            int iterations1 = run(file, Arrays.asList("minimumremainingvalue")); 
+            int iterations2 = run(file, Arrays.asList("degree"));
+            int iterations3 = run(file, Arrays.asList("minimumremainingvalue", "degree"));
+            int iterations4 = run(file, Arrays.asList("off")); 
 
+            saveInformation(iterations1, Arrays.asList("minimumremainingvalue"));
+            saveInformation(iterations2, Arrays.asList("degree"));
+            saveInformation(iterations3, Arrays.asList("minimumremainingvalue", "degree"));
+            saveInformation(iterations4, Arrays.asList("off"));
+        }
+    }
+
+    public int run(String filePath, List<String> comparators)
+    {
+        Game game = new Game(new Sudoku(filePath), comparators);
+        game.showSudoku();
+        int iterations = game.solve();
+        if (game.validSolution()){
+            System.out.println("Solved! " + iterations);
+        }
+        else{
+            System.out.println("Could not solve this sudoku :( " + iterations);
+        }
+        game.showSudoku();
+        return iterations;
+    }
+
+    public void saveInformation(int iterations, List<String> comparators)
+    {
+        try {
+            FileWriter writer = new FileWriter("results.csv", true);
+            PrintWriter pWriter = new PrintWriter(writer);
+            String line = "Comparators: ";
+            for(int i = 0; i < comparators.size(); i++)
+            {               
+                line += comparators.get(i) + (i == comparators.size() - 1 ? "; " : ", ");
+            }
+            line += "Amount of iterations: " + iterations;
+            pWriter.println(line);
+            pWriter.close();
+        } catch (Exception e) {
+        }
     }
 
     private List<String> getFiles(String directory)
     {
-        File dir = new File(directory);
-        //File[] files = dir.listFiles((directory, name) -> name.toLowerCase().endsWith(".txt"));
-
-        return null;
+        File direc = new File(directory);
+        File[] files = direc.listFiles((dir, name) -> name.toLowerCase().endsWith(".txt"));
+        List<String> filenames = new ArrayList<String>();
+        for (File file : files) {
+            filenames.add(file.getAbsolutePath());
+        }
+        return filenames;
     }
 }

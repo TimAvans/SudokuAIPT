@@ -9,7 +9,7 @@ public class Game {
 
   Game(Sudoku sudoku) {
     this.sudoku = sudoku;
-    createConstraints(Arrays.asList("mrvc", "dgc"));
+    createConstraints(Arrays.asList("minimumremainingvalue", "degree"));
   }
 
   Game(Sudoku sudoku, List<String> comparators) {
@@ -25,10 +25,9 @@ public class Game {
    * Implementation of the AC-3 algorithm
    * @return true if the constraints can be satisfied, else false
    */
-  public boolean solve() {
+  public int solve() {
     Field[][] grid = sudoku.getBoard();
-    ac3(grid);
-    return true;
+    return ac3(grid);
   }
 
   //#region AC3
@@ -36,14 +35,14 @@ public class Game {
    * 
    * @param grid
    */
-  public boolean ac3(Field[][] grid) {
+  public int ac3(Field[][] grid) {
     int iterations = 0;
     while (!queue.isEmpty()) {
       iterations++;
       revise(queue.poll());
     }
     System.out.println("Complexity of AC3: " + iterations);
-    return true;
+    return iterations;
   }
 
   private void revise(Constraint constraint)
@@ -64,14 +63,14 @@ public class Game {
       }
     }
   }
-//#endregion
+  //#endregion
   
   //#region Constraint creation
   /**
    * 
    */
   public PriorityQueue<Constraint> createConstraints(List<String> comparators) {
-    queue = new PriorityQueue<>(Comparator.comparingInt(cstr -> ComparatorController.Instance().getHeuristicValue(comparators, cstr)));
+    queue = new PriorityQueue<Constraint>(Comparator.comparingInt(cstr -> ComparatorController.Instance().getHeuristicValue(comparators, cstr)));
     Field[][] grid = sudoku.getBoard();
     for (int i = 0; i < grid.length; i++) {
       for (int j = 0; j < grid[i].length; j++) {

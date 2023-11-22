@@ -7,8 +7,9 @@ public class ComparatorController {
 
     private ComparatorController() {
         comparators = new HashMap<String,Comparator>();
-        comparators.put("mrvc", new MinimumRemainingValueComparator());
-        comparators.put("dgc", new DegreeComparator());
+        comparators.put("minimumremainingvalue", new MinimumRemainingValueComparator());
+        comparators.put("degree", new DegreeComparator());
+        comparators.put("off", new NoComparator());
     }
 
     public static ComparatorController Instance()

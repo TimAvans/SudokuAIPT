@@ -2,8 +2,8 @@ public class App {
     public static void main(String[] args) throws Exception {
         String workingDir = System.getProperty("user.dir");
         
-        start(workingDir +  "\\sudoku-csp\\Sudoku1.txt");
-        //AutomateResults.Instance().runGames(workingDir + "\\sudoku-csp\\");
+        //start(workingDir +  "\\sudoku-csp\\Sudoku1.txt");
+        AutomateResults.Instance().runGames(workingDir + "\\sudoku-csp\\");
     }
 
     /**
@@ -13,12 +13,12 @@ public class App {
     public static void start(String filePath){
         Game game1 = new Game(new Sudoku(filePath));
         game1.showSudoku();
-
-        if (game1.solve() && game1.validSolution()){
-            System.out.println("Solved!");
+        int iterations = game1.solve();
+        if (game1.validSolution()){
+            System.out.println("Solved! " + iterations);
         }
         else{
-            System.out.println("Could not solve this sudoku :(");
+            System.out.println("Could not solve this sudoku :( " + iterations);
         }
         game1.showSudoku();
     }
