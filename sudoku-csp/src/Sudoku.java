@@ -8,23 +8,23 @@ import java.util.List;
 public class Sudoku {
   private Field[][] board;
 
-  Sudoku(String filename) {
+  Sudoku(String filename) { //Constructor that initializes the Sudoku puzzle based on a file.
     this.board = readsudoku(filename);
   }
 
   @Override
-  public String toString() {
+  public String toString() { // Generates a string representation of the Sudoku puzzle for display.
     String output = "╔═══════╦═══════╦═══════╗\n";
-		for(int i=0;i<9;i++){
+		for(int i=0;i<9;i++){ // Iterate through each row of the Sudoku puzzle
       if(i == 3 || i == 6) {
 		  	output += "╠═══════╬═══════╬═══════╣\n";
 		  }
       output += "║ ";
-		  for(int j=0;j<9;j++){
+		  for(int j=0;j<9;j++){ // Iterate through each column of the Sudoku puzzle
 		   	if(j == 3 || j == 6) {
           output += "║ ";
 		   	}
-         output += board[i][j] + " ";
+         output += board[i][j] + " "; // Append the value of the current field to the output
 		  }
 		  
       output += "║\n";
@@ -39,18 +39,18 @@ public class Sudoku {
 	 * @return 2d int array of the sudoku
 	 */
 	public static Field[][] readsudoku(String filename) {
-		assert filename != null && filename != "" : "Invalid filename";
+		assert filename != null && filename != "" : "Invalid filename"; // Ensure that the filename is not null or an empty string
 		String line = "";
 		Field[][] grid = new Field[9][9];
 		try {
-		FileInputStream inputStream = new FileInputStream(filename);
+		FileInputStream inputStream = new FileInputStream(filename); // Open the file for reading
         Scanner scanner = new Scanner(inputStream);
-        for(int i = 0; i < 9; i++) {
+        for(int i = 0; i < 9; i++) { // Iterate through each row of the Sudoku puzzle
         	if(scanner.hasNext()) {
         		line = scanner.nextLine();
-        		for(int j = 0; j < 9; j++) {
-              int numValue = Character.getNumericValue(line.charAt(j));
-              if(numValue == 0) {
+        		for(int j = 0; j < 9; j++) { // Iterate through each character in the line
+              int numValue = Character.getNumericValue(line.charAt(j));  // Get the numeric value of the character
+              if(numValue == 0) { // Create a new Field object based on the numeric value
                 grid[i][j] = new Field();
               } else if (numValue != -1) {
                 grid[i][j] = new Field(numValue);
@@ -60,7 +60,7 @@ public class Sudoku {
         }
         scanner.close();      
     }
-		catch (FileNotFoundException e) {
+		catch (FileNotFoundException e) {  // Handle the case where the file is not found
 			System.out.println("error opening file: "+filename);
 		}
     addNeighbours(grid);
@@ -117,16 +117,16 @@ public class Sudoku {
 	 */
 	public String toFileString(){
     String output = "";
-    for (int i = 0; i < board.length; i++) {
-      for (int j = 0; j < board[0].length; j++) {
-        output += board[i][j].getValue();
+    for (int i = 0; i < board.length; i++) { // Iterate through each row of the Sudoku puzzle
+      for (int j = 0; j < board[0].length; j++) { // Iterate through each column of the Sudoku puzzle
+        output += board[i][j].getValue(); // Append the value of the current field to the output
       }
       output += "\n";
     }
     return output;
 	}
 
-  public Field[][] getBoard(){
+  public Field[][] getBoard(){ // Gets the 2D array representing the Sudoku puzzle board.
     return board;
   }
 }

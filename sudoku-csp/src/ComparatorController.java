@@ -3,8 +3,9 @@ import java.util.List;
 
 public class ComparatorController {
     private static ComparatorController instance;
-    private HashMap<String, Comparator> comparators;
+    private HashMap<String, Comparator> comparators; // Map of comparator names to their corresponding implementations
 
+    // Private constructor to initialize the ComparatorController with default comparators.
     private ComparatorController() {
         comparators = new HashMap<String,Comparator>();
         comparators.put("minimumremainingvalue", new MinimumRemainingValueComparator());
@@ -12,7 +13,7 @@ public class ComparatorController {
         comparators.put("off", new NoComparator());
     }
 
-    public static ComparatorController Instance()
+    public static ComparatorController Instance() // Get the solitary instance of the ComparatorController
     {
         if (instance == null) {
             instance = new ComparatorController();
@@ -23,9 +24,9 @@ public class ComparatorController {
     public int getHeuristicValue(List<String> comparatorids, Constraint constraint)
     {
         int heuristicValue = 0;
-        for (String string : comparatorids) {
-            if (comparators.containsKey(string)) {
-                heuristicValue += comparators.get(string).getHeuristicValue(constraint);
+        for (String string : comparatorids) { // Iterate through each comparator name in the list
+            if (comparators.containsKey(string)) { // Check if the comparator is present in the map
+                heuristicValue += comparators.get(string).getHeuristicValue(constraint);  // Accumulate heuristic values from each comparator
             }
         }
         return heuristicValue;

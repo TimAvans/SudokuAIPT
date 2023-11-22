@@ -9,12 +9,12 @@ public class Game {
 
   Game(Sudoku sudoku) {
     this.sudoku = sudoku;
-    createConstraints(Arrays.asList("minimumremainingvalue", "degree"));
+    createConstraints(Arrays.asList("minimumremainingvalue", "degree")); // Create constraints with default comparators ("minimumremainingvalue" and "degree")
   }
 
   Game(Sudoku sudoku, List<String> comparators) {
     this.sudoku = sudoku;
-    createConstraints(comparators);
+    createConstraints(comparators); // Create constraints with the specified comparators
   }
 
   public void showSudoku() {
@@ -37,28 +37,28 @@ public class Game {
    */
   public int ac3(Field[][] grid) {
     int iterations = 0;
-    while (!queue.isEmpty()) {
+    while (!queue.isEmpty()) { // Continue processing constraints until the priority queue is empty
       iterations++;
-      revise(queue.poll());
+      revise(queue.poll()); // Process the next constraint and revise domains
     }
-    System.out.println("Complexity of AC3: " + iterations);
+    System.out.println("Complexity of AC3: " + iterations); // Print the complexity of the AC-3 algorithm
     return iterations;
   }
 
   private void revise(Constraint constraint)
   {
-    if (constraint.checkConstraint()) {
-      for (Field neighbour : constraint.field1.getOtherNeighbours(constraint.field2)) {
-          addToQueue(neighbour, constraint.field1);
+    if (constraint.checkConstraint()) { // Check if the constraint holds
+      for (Field neighbour : constraint.field1.getOtherNeighbours(constraint.field2)) { // Iterate through neighbors of field1 excluding field2
+          addToQueue(neighbour, constraint.field1); // Add the neighbor to the priority queue if its value is unknown
       }
     }
   }
 
   private void addToQueue(Field neighbour, Field currentField1)
   {
-    if (neighbour.getValue() == 0) {
-      Constraint cstr = new Constraint(neighbour, currentField1);
-      if (!queue.contains(cstr)) {
+    if (neighbour.getValue() == 0) { // Check if the neighbor's value is unknown (0)
+      Constraint cstr = new Constraint(neighbour, currentField1); // Create a new constraint with the neighbor and currentField1
+      if (!queue.contains(cstr)) {  // Add the constraint to the priority queue if it is not already present
         queue.add(cstr);
       }
     }
@@ -69,13 +69,13 @@ public class Game {
   /**
    * 
    */
-  public PriorityQueue<Constraint> createConstraints(List<String> comparators) {
+  public PriorityQueue<Constraint> createConstraints(List<String> comparators) { // Create a priority queue of constraints sorted by heuristic values using specified comparators
     queue = new PriorityQueue<Constraint>(Comparator.comparingInt(cstr -> ComparatorController.Instance().getHeuristicValue(comparators, cstr)));
-    Field[][] grid = sudoku.getBoard();
-    for (int i = 0; i < grid.length; i++) {
-      for (int j = 0; j < grid[i].length; j++) {
+    Field[][] grid = sudoku.getBoard();// Get the Sudoku board
+    for (int i = 0; i < grid.length; i++) { // Iterate through each row in the grid
+      for (int j = 0; j < grid[i].length; j++) { // Iterate through each field in the row
         Field field = grid[i][j];
-        addConstraintsToQueue(field);
+        addConstraintsToQueue(field); // Add constraints to the queue for the current field
       }
     }
     return queue;
@@ -83,9 +83,9 @@ public class Game {
 
   private void addConstraintsToQueue(Field field)
   {
-    if (field.getValue() == 0) {
-      for (Field neighbour : field.getNeighbours()) {
-        queue.add(new Constraint(field, neighbour));
+    if (field.getValue() == 0) { // Check if the field's value is unknown (0)
+      for (Field neighbour : field.getNeighbours()) { // Iterate through each neighbor of the field
+        queue.add(new Constraint(field, neighbour)); // Add a new constraint to the priority queue
       }
     }
   }
@@ -99,13 +99,13 @@ public class Game {
    * @return true if the sudoku solution is correct
    */
   public boolean validSolution() {
-    Field[][] grid = sudoku.getBoard();
+    Field[][] grid = sudoku.getBoard(); // Iterate through each row in the grid
     for (int i = 0; i < grid.length; i++) {
-      for (Field field : grid[i]) {
+      for (Field field : grid[i]) { // If the field value is 0, the puzzle is not solved
         if (field.getValue() == 0) {
           return false;
         }
-        if (!checkNeighbours(field)) {
+        if (!checkNeighbours(field)) { // Check if the value of the field is unique among its neighbors
           return false;
         }
       }
@@ -115,8 +115,8 @@ public class Game {
 
   private boolean checkNeighbours(Field field)
   {
-    for (Field neighbour : field.getNeighbours()) {
-      if (neighbour.getValue() == field.getValue()) {
+    for (Field neighbour : field.getNeighbours()) { // Iterate through each neighbor of the field
+      if (neighbour.getValue() == field.getValue()) { // If the neighbor has the same value as the field, the puzzle is not solved
         return false;
       }
     }

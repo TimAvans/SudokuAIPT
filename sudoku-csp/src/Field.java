@@ -45,24 +45,24 @@ public class Field {
    * =====================
    */
   public void setNeighbours(List<Field> neighbours, boolean horizontal) {
-    this.neighbours = neighbours;
+    this.neighbours = neighbours; // Set the list of neighbors for this field
   }
 
 
   public void addNeighbour(Field neighbour, boolean horizontal)
   {
-    this.neighbours.add(neighbour);
+    this.neighbours.add(neighbour); // Add the specified field as a neighbor
 
   }
 
   public List<Field> getNeighbours() {
-    return neighbours;
+    return neighbours; // Return the list of neighbors for this field
   }
 
   public List<Field> getOtherNeighbours(Field b) {
     List<Field> newNeighbours = new ArrayList<>(neighbours);
-    newNeighbours.remove(b);
-    return newNeighbours;
+    newNeighbours.remove(b); // Remove the specified field from the list of neighbors
+    return newNeighbours; // Return the modified list of neighbors
   }
 
   /*
@@ -110,13 +110,13 @@ public class Field {
   @Override
   public boolean equals(Object other)
   {
-    if (other instanceof Field) {
+    if (other instanceof Field) { // Compate the domain, neighbours and value of the two fields
       if (((Field)other).domain == this.domain 
       && ((Field)other).neighbours == this.neighbours 
       && ((Field)other).value == this.value) {
-        return true;
+        return true; // The fiels are equal
       }
     }
-    return false;
+    return false; // The fields are not equal
   }
 }
