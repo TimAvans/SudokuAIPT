@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AutomateResults {
-    
+
     private static AutomateResults instance;
     
     private AutomateResults() {
@@ -29,10 +29,10 @@ public class AutomateResults {
             int iterations3 = run(file, Arrays.asList("minimumremainingvalue", "degree"));
             int iterations4 = run(file, Arrays.asList("off")); 
 
-            saveInformation(iterations1, Arrays.asList("minimumremainingvalue"));
-            saveInformation(iterations2, Arrays.asList("degree"));
-            saveInformation(iterations3, Arrays.asList("minimumremainingvalue", "degree"));
-            saveInformation(iterations4, Arrays.asList("off"));
+            saveInformation(file, iterations1, Arrays.asList("minimumremainingvalue"));
+            saveInformation(file, iterations2, Arrays.asList("degree"));
+            saveInformation(file, iterations3, Arrays.asList("minimumremainingvalue", "degree"));
+            saveInformation(file, iterations4, Arrays.asList("off"));
         }
     }
 
@@ -51,12 +51,13 @@ public class AutomateResults {
         return iterations;
     }
 
-    public void saveInformation(int iterations, List<String> comparators)
+    public void saveInformation(String filepath, int iterations, List<String> comparators)
     {
         try {
+            File file = new File(filepath);
             FileWriter writer = new FileWriter("results.csv", true);
             PrintWriter pWriter = new PrintWriter(writer);
-            String line = "Comparators: ";
+            String line = file.getName() + "; Comparators: ";
             for(int i = 0; i < comparators.size(); i++)
             {               
                 line += comparators.get(i) + (i == comparators.size() - 1 ? "; " : ", ");
