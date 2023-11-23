@@ -69,7 +69,7 @@ public class Game {
   /**
    * 
    */
-  public PriorityQueue<Constraint> createConstraints(List<String> comparators) { // Create a priority queue of constraints sorted by heuristic values using specified comparators
+  public void createConstraints(List<String> comparators) { // Create a priority queue of constraints sorted by heuristic values using specified comparators
     queue = new PriorityQueue<Constraint>(Comparator.comparingInt(cstr -> ComparatorController.Instance().getHeuristicValue(comparators, cstr)));
     Field[][] grid = sudoku.getBoard();// Get the Sudoku board
     for (int i = 0; i < grid.length; i++) { // Iterate through each row in the grid
@@ -78,7 +78,6 @@ public class Game {
         addConstraintsToQueue(field); // Add constraints to the queue for the current field
       }
     }
-    return queue;
   }
 
   private void addConstraintsToQueue(Field field)

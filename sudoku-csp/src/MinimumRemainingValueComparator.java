@@ -1,6 +1,6 @@
 
 // This class implements the Comparator interface to define a custom comparison strategy based on the heuristiv value calculated from a contraint object. 
-public class MinimumRemainingValueComparator implements Comparator{
+public class MinimumRemainingValueComparator implements IComparator{
 
     //In other words return a high value if there are more finalized fields. 
     @Override

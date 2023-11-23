@@ -44,12 +44,12 @@ public class Field {
    *  NEIGHBOUR FUNCTIONS
    * =====================
    */
-  public void setNeighbours(List<Field> neighbours, boolean horizontal) {
+  public void setNeighbours(List<Field> neighbours) {
     this.neighbours = neighbours; // Set the list of neighbors for this field
   }
 
 
-  public void addNeighbour(Field neighbour, boolean horizontal)
+  public void addNeighbour(Field neighbour)
   {
     this.neighbours.add(neighbour); // Add the specified field as a neighbor
 

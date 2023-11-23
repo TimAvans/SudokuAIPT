@@ -1,6 +1,6 @@
 
 
-public class DegreeComparator  implements Comparator{
+public class DegreeComparator  implements IComparator{
 
     @Override
     public int getHeuristicValue(Constraint constraint) {

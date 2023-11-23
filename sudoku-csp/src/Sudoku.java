@@ -107,7 +107,7 @@ public class Sudoku {
         }
 
         //Set the temporary list as the neighbours
-        grid[y][x].setNeighbours(tempList, false);
+        grid[y][x].setNeighbours(tempList);
       }
     } 
   }

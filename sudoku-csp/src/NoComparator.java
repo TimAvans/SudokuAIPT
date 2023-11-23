@@ -1,4 +1,4 @@
-public class NoComparator implements Comparator{
+public class NoComparator implements IComparator{
     //return a high value if there are more finalized fields. 
     @Override
     public int getHeuristicValue(Constraint constraint) {

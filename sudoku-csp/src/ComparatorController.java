@@ -3,11 +3,11 @@ import java.util.List;
 
 public class ComparatorController {
     private static ComparatorController instance;
-    private HashMap<String, Comparator> comparators; // Map of comparator names to their corresponding implementations
+    private HashMap<String, IComparator> comparators; // Map of comparator names to their corresponding implementations
 
     // Private constructor to initialize the ComparatorController with default comparators.
     private ComparatorController() {
-        comparators = new HashMap<String,Comparator>();
+        comparators = new HashMap<String, IComparator>();
         comparators.put("minimumremainingvalue", new MinimumRemainingValueComparator());
         comparators.put("degree", new DegreeComparator());
         comparators.put("off", new NoComparator());
