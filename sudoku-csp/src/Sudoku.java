@@ -8,10 +8,17 @@ import java.util.List;
 public class Sudoku {
   private Field[][] board;
 
-  Sudoku(String filename) { //Constructor that initializes the Sudoku puzzle based on a file.
+  /**
+   * Constructor that initializes the Sudoku puzzle based on a file.
+   * @param filename
+   */
+  Sudoku(String filename) { 
     this.board = readsudoku(filename);
   }
 
+  /**
+   * Return string representation of the sudoku board.
+   */
   @Override
   public String toString() { // Generates a string representation of the Sudoku puzzle for display.
     String output = "╔═══════╦═══════╦═══════╗\n";
@@ -68,7 +75,7 @@ public class Sudoku {
 	}
 
   /**
-   * Adds a list of neighbours to each field, i.e., arcs to be satisfied
+   * Adds a list of neighbours to each field.
    * @param grid
    */
   private static void addNeighbours(Field[][] grid) 
@@ -126,7 +133,11 @@ public class Sudoku {
     return output;
 	}
 
-  public Field[][] getBoard(){ // Gets the 2D array representing the Sudoku puzzle board.
+  /**
+   * Gets the 2D array representing the Sudoku puzzle board.
+   * @return
+   */
+  public Field[][] getBoard(){ 
     return board;
   }
 }

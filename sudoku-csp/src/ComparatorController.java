@@ -13,7 +13,13 @@ public class ComparatorController {
         comparators.put("off", new NoComparator());
     }
 
-    public static ComparatorController Instance() // Get the solitary instance of the ComparatorController
+    /**
+     * Creates an instance of this class if there is none yet.
+     * Otherwise return a new instance.
+     * Ensures only 1 instance can ever exist.
+     * @return Current instance of this class
+     */
+    public static ComparatorController Instance()
     {
         if (instance == null) {
             instance = new ComparatorController();
@@ -21,6 +27,12 @@ public class ComparatorController {
         return instance;
     }
 
+    /**
+     * Returns the heuristic value of a constraint using the comparators given as parameter.
+     * @param comparatorids
+     * @param constraint
+     * @return Heuristic value of the given Constraint and Comparators
+     */
     public int getHeuristicValue(List<String> comparatorids, Constraint constraint)
     {
         int heuristicValue = 0;

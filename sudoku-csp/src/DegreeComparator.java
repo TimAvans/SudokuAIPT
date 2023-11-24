@@ -1,7 +1,13 @@
 
-
+/**
+ * Implementation of the IComparator.
+ */
 public class DegreeComparator  implements IComparator{
 
+    /**
+     * Get the degree heuristic value by checking the amount of neighbours with a set value.
+     * return the heuristic value of the given Constraint.
+     */
     @Override
     public int getHeuristicValue(Constraint constraint) {
         //The amount of constraints on a field are equal to the amount of neighbours have a value

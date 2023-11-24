@@ -2,7 +2,10 @@
 // This class implements the Comparator interface to define a custom comparison strategy based on the heuristiv value calculated from a contraint object. 
 public class MinimumRemainingValueComparator implements IComparator{
 
-    //In other words return a high value if there are more finalized fields. 
+    /**
+     * Heuristic which returns -1 if the Constraint's field2 has no remaining values.
+     * Or returns the domainsize as heuristic value if there are remaining values.
+     */
     @Override
     public int getHeuristicValue(Constraint constraint) { 
         if (constraint.field2.getValue() != 0) { // Checks if the value of the second field is not equal to 0 (not finalized)

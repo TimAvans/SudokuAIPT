@@ -7,12 +7,25 @@ import java.util.List;
 
 public class AutomateResults { // Automating and collecting results of Sudoku solving with different comparators.
 
+    /**
+     * Instance of automate results to give back. 
+     * Makes sure there will always be only 1 instance of this class
+     */
     private static AutomateResults instance;
     
+    /**
+     * Private ctor
+     */
     private AutomateResults() {
     }
 
-    public static AutomateResults Instance() // Get the soliditary instance of AutomateResults.
+    /**
+     * Creates an instance of this class if there is none yet.
+     * Otherwise return a new instance.
+     * Ensures only 1 instance can ever exist.
+     * @return Current instance of this class
+     */
+    public static AutomateResults Instance() 
     {
         if (instance == null) {
             instance = new AutomateResults();
@@ -20,7 +33,11 @@ public class AutomateResults { // Automating and collecting results of Sudoku so
         return instance;
     }
 
-    public void runGames(String directory) // Run Sudoku solving games with different comparators for each file in the specified directory.
+    /**
+     * Run Sudoku solving games with different comparators for each file in the specified directory.
+     * @param directory
+     */
+    public void runGames(String directory) 
     {
         List<String> files = getFiles(directory);
         for (String file : files) {
@@ -36,7 +53,13 @@ public class AutomateResults { // Automating and collecting results of Sudoku so
         }
     }
 
-    public int run(String filePath, List<String> comparators) // Run Sudoku solving game with the specified comparators and display results.
+    /**
+     * Run Sudoku solving game with the specified comparators and display results.
+     * @param filePath
+     * @param comparators
+     * @return Amount of iterations it took to complete the sudoku
+     */
+    public int run(String filePath, List<String> comparators)
     {
         Game game = new Game(new Sudoku(filePath), comparators); // Create a new Game instance with a Sudoku puzzle and specified comparators
         game.showSudoku();
@@ -51,7 +74,13 @@ public class AutomateResults { // Automating and collecting results of Sudoku so
         return iterations;
     }
 
-    public void saveInformation(String filepath, int iterations, List<String> comparators) // Save information about the Sudoku solving results to a CSV file.
+    /**
+     * Save information about the Sudoku solving results to a CSV file.
+     * @param filepath
+     * @param iterations
+     * @param comparators
+     */
+    public void saveInformation(String filepath, int iterations, List<String> comparators) 
     {
         try {
             File file = new File(filepath); // Create a File object representing the Sudoku puzzle file
@@ -69,7 +98,12 @@ public class AutomateResults { // Automating and collecting results of Sudoku so
         }
     }
 
-    private List<String> getFiles(String directory) // Get a list of file paths for Sudoku puzzle files in the specified directory.
+    /**
+     * Get a list of file paths for Sudoku puzzle files in the specified directory.
+     * @param directory
+     * @return
+     */
+    private List<String> getFiles(String directory) 
     {
         File direc = new File(directory);
         File[] files = direc.listFiles((dir, name) -> name.toLowerCase().endsWith(".txt")); 
