@@ -1,26 +1,20 @@
-
 Sudoku1.txt; Comparators: minimumremainingvalue; Amount of iterations: 1315
 Sudoku1.txt; Comparators: degree; Amount of iterations: 2238
 Sudoku1.txt; Comparators: minimumremainingvalue, degree; Amount of iterations: 1288
 Sudoku1.txt; Comparators: off; Amount of iterations: 3885
-
 Sudoku2.txt; Comparators: minimumremainingvalue; Amount of iterations: 1304
 Sudoku2.txt; Comparators: degree; Amount of iterations: 1814
 Sudoku2.txt; Comparators: minimumremainingvalue, degree; Amount of iterations: 1197
 Sudoku2.txt; Comparators: off; Amount of iterations: 2386
-
 Sudoku3.txt; Comparators: minimumremainingvalue; Amount of iterations: 1384
 Sudoku3.txt; Comparators: degree; Amount of iterations: 2682
 Sudoku3.txt; Comparators: minimumremainingvalue, degree; Amount of iterations: 1237
 Sudoku3.txt; Comparators: off; Amount of iterations: 3587
-
 Sudoku4.txt; Comparators: minimumremainingvalue; Amount of iterations: 940
 Sudoku4.txt; Comparators: degree; Amount of iterations: 2861
 Sudoku4.txt; Comparators: minimumremainingvalue, degree; Amount of iterations: 940
 Sudoku4.txt; Comparators: off; Amount of iterations: 2637
-
 Sudoku5.txt; Comparators: minimumremainingvalue; Amount of iterations: 1129
 Sudoku5.txt; Comparators: degree; Amount of iterations: 1654
 Sudoku5.txt; Comparators: minimumremainingvalue, degree; Amount of iterations: 1004
 Sudoku5.txt; Comparators: off; Amount of iterations: 2611
-

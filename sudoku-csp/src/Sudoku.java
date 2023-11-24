@@ -101,8 +101,7 @@ public class Sudoku {
         // Add cells from the same 3x3 subgrid
         int subgridStartX = (x / 3) * 3;
         int subgridStartY = (y / 3) * 3; 
-        // System.out.println("Starting x-coordinate of the subgrid: " + subgridStartX);
-        // System.out.println("Starting y-coordinate of the subgrid: " + subgridStartY);
+
         for (int i = subgridStartY; i < subgridStartY + 3; i++) {
             for (int j = subgridStartX; j < subgridStartX + 3; j++) {
                 if (i != y || j != x) {
