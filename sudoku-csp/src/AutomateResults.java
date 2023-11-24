@@ -94,8 +94,7 @@ public class AutomateResults { // Automating and collecting results of Sudoku so
             line += "Amount of iterations: " + iterations;
             pWriter.println(line); // Write the formatted line to the results.csv file
             pWriter.close();
-        } catch (Exception e) { //TODO: MOET HIER NOG WAT IN???
-        }
+        } catch (Exception e) {System.out.println(e.toString());}
     }
 
     /**
@@ -106,11 +105,11 @@ public class AutomateResults { // Automating and collecting results of Sudoku so
     private List<String> getFiles(String directory) 
     {
         File direc = new File(directory);
-        File[] files = direc.listFiles((dir, name) -> name.toLowerCase().endsWith(".txt")); 
-        List<String> filenames = new ArrayList<String>();
-        for (File file : files) {
-            filenames.add(file.getAbsolutePath());
+        File[] files = direc.listFiles((dir, name) -> name.toLowerCase().endsWith(".txt")); //Get all files in this directory that end with .txt
+        List<String> filenames = new ArrayList<String>(); //Create a List to store the absolute path of the matching files
+        for (File file : files) { //Iterate through the array of files
+            filenames.add(file.getAbsolutePath()); //Add the current file's absolute path to the list
         }
-        return filenames;
+        return filenames; //Return the list of absolute paths
     }
 }

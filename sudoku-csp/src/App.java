@@ -1,8 +1,8 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        //Reference to sudokus did not work on all devices so made a reference to the current working directory, and look from there
+        //Referencing sudokus directly did not work on all devices, so we opted to reference the current working directory and search for sudokus from this location.
         String workingDir = System.getProperty("user.dir");
-
+        
         //Start the program
         //start(workingDir +  "\\sudoku-csp\\Sudoku1.txt");
 
